@@ -1,0 +1,98 @@
+library (gabor_stdcells) {
+  time_unit : "1ns";
+  voltage_unit : "1V";
+  current_unit : "1mA";
+  capacitive_load_unit (1, pf);
+
+  /* Inverter */
+  cell (INV_X1) {
+    area : 1.0;
+
+    pin (A) {
+      direction : input;
+    }
+
+    pin (Y) {
+      direction : output;
+      function : "!A";
+
+      timing () {
+        related_pin : "A";
+        cell_rise : 0.10;
+        cell_fall : 0.10;
+      }
+    }
+  }
+
+  /* 2-input AND */
+  cell (AND2_X1) {
+    area : 2.0;
+
+    pin (A) { direction : input; }
+    pin (B) { direction : input; }
+
+    pin (Y) {
+      direction : output;
+      function : "A & B";
+
+      timing () {
+        related_pin : "A";
+        cell_rise : 0.20;
+        cell_fall : 0.20;
+      }
+      timing () {
+        related_pin : "B";
+        cell_rise : 0.20;
+        cell_fall : 0.20;
+      }
+    }
+  }
+
+  /* 2-input OR */
+  cell (OR2_X1) {
+    area : 2.0;
+
+    pin (A) { direction : input; }
+    pin (B) { direction : input; }
+
+    pin (Y) {
+      direction : output;
+      function : "A | B";
+
+      timing () {
+        related_pin : "A";
+        cell_rise : 0.20;
+        cell_fall : 0.20;
+      }
+      timing () {
+        related_pin : "B";
+        cell_rise : 0.20;
+        cell_fall : 0.20;
+      }
+    }
+  }
+
+  /* D Flip-Flop */
+  cell (DFF_X1) {
+    area : 4.0;
+
+    pin (CLK) {
+      direction : input;
+      clock : true;
+    }
+
+    pin (D) {
+      direction : input;
+    }
+
+    pin (Q) {
+      direction : output;
+
+      timing () {
+        related_pin : "CLK";
+        cell_rise : 0.30;
+        cell_fall : 0.30;
+      }
+    }
+  }
+}

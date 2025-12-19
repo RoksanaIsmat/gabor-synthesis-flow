@@ -1,0 +1,35 @@
+library (gabor_memory) {
+  time_unit : "1ns";
+
+  /* Simple synchronous SRAM macro */
+  cell (SRAM_32x8) {
+    area : 200.0;
+
+    pin (CLK) {
+      direction : input;
+      clock : true;
+    }
+
+    pin (ADDR) {
+      direction : input;
+    }
+
+    pin (WE) {
+      direction : input;
+    }
+
+    pin (DIN) {
+      direction : input;
+    }
+
+    pin (DOUT) {
+      direction : output;
+
+      timing () {
+        related_pin : "CLK";
+        cell_rise : 1.50;
+        cell_fall : 1.50;
+      }
+    }
+  }
+}
